@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaning Hogwarts Data</title>
+    <link rel="stylesheet" href="styleHogwarts.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Hogwarts School of Witchcraft and Wizardry</h1>
+        <label><input type="text" placeholder="search"></label>
+    </header>
+    <main>
+        <h2>Student List 1991</h2>
+        <div id="fsContainer">
+            <div id="filterContainer">
+                <label>Filter:</label><br>
+                <button class="filter" data-action="filter" data-filter="Slytherin">Slytherin</button><br>
+                <button class="filter" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button><br>
+                <button class="filter" data-action="filter" data-filter="Hufflepuff">Hufflepuff</button><br>
+                <button class="filter" data-action="filter" data-filter="Gryffindor">Gryffindor</button><br>
+                <button class="filter" data-action="filter" data-filter="bloodType">Blood Type</button><br>
+                <button class="filter" data-action="filter" data-filter="prefect">Prefect</button><br>
+                <button class="filter" data-action="filter" data-filter="expelled">Expelled</button><br>
+                <button class="filter" data-action="filter" data-filter="all">All Students</button><br>
+            </div><br>
+            <div id="sortContainer">
+                <label>Sort:</label><br>
+                <button class="sort" data-action="filter" data-filter="firstNameSort">Sort by firstname</button><br>
+                <button class="sort" data-action="filter" data-filter="Slytherin">Slytherin</button><br>
+                <button class="sort" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button><br>
+                <button class="sort" data-action="filter" data-filter="Hufflepuff">Hufflepuff</button><br>
+                <button class="sort" data-action="filter" data-filter="Gryffindor">Gryffindor</button><br>
+                <button class="sort" data-action="filter" data-filter="bloodType">Blood Type</button><br>
+                <button class="sort" data-action="filter" data-filter="prefect">Prefect</button><br>
+            </div>
+        </div>
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>MiddleName</th>
+                    <th>NickName</th>
+                    <th>LastName</th>
+                    <th>Gender</th>
+                    <th>House</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- student template will be copied and inserted here -->
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <label>Number of Students in total:<output type="text"></output></label>
+    </footer>
+
+    <template id="student">
+        <tr>
+            <td data-field="firstName">FIRST NAME</td>
+            <td data-field="middleName">MIDDLE NAME</td>
+            <td data-field="nickName">NICK NAME</td>
+            <td data-field="lastName">LAST NAME</td>
+            <td data-field="gender">GENDER</td>
+            <td data-field="house">HOUSE</td>
+            <td data-field="image"><img class="image" src="" alt=""></td>
+        </tr>
+    </template>
+
+    <div class="modalBackground hide">
+        <div class="modalContent">
+            <h2 class="modalStudentName">Student Name</h2>
+            <h2 class="modalHouse">house</h2>
+
+            <h2 class="modalGender">gender</h2>
+        </div>
+    </div>
+    <script src="scriptHogwarts.js"></script>
+</body>
+
+</html>

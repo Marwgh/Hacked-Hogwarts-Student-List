@@ -1,0 +1,121 @@
+/*body*/
+body {
+    margin: 0;
+  }
+html body {
+    margin: 0;
+    padding: 0;
+}
+  
+body {
+    background-color: rgb(3, 3, 104);
+}
+  
+header {
+    grid-area: hd;
+    align-items: center;
+}
+  
+h1 {
+    grid-area: h1;
+    text-align: center;
+    color: #fefefe;
+}
+  
+h3 {
+    text-align: center;
+    color: #fefefe;
+}
+  
+button {
+    color: #fefefe;
+    background-color: rgb(3, 3, 104);
+}
+  
+label {
+    grid-area: label;
+    align-items: flex-end;
+    color: #fefefe;
+}
+  
+footer > label {
+    grid-area: label;
+    padding-left: 70%;
+    color: #fefefe;
+}
+  
+h2 {
+    grid-area: h2;
+    text-align: center;
+    color: #fefefe;
+}
+  
+div {
+    grid-area: div;
+}
+  
+#filterContainer > label {
+    /* grid-area: fc; */
+    font-size: 20fr;
+}
+  
+#sortContainer > label {
+    /* grid-area: sc; */
+    font-size: 20fr;
+}
+  
+#fsContainer {
+    grid-area: fs;
+}
+  
+table {
+    grid-area: table;
+}
+  
+td {
+    text-align: center;
+    color: #fefefe;
+}
+  
+th {
+    text-align: center;
+    color: #fefefe;
+}
+  
+@media only screen and (min-width: 1100px) {
+    header {
+      display: grid;
+      grid-template-columns: 0.2fr 1fr 0.2fr;
+      grid-template-areas: ". h1 label";
+    }
+    main {
+      display: grid;
+      grid-template-columns: 0.2fr 1fr;
+      grid-template-areas:
+        "h2 h2"
+        "fs table";
+    }
+  }
+  
+  /* modal */
+  /* .hide {
+    display: none;
+  } */
+  
+.modal-background {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+  
+.modal-content {
+    background-color: #0d0c6d;
+    border: 1px solid #000000;
+    color: #fefefe;
+    margin: 1em;
+    padding: 2em;
+}
