@@ -190,7 +190,8 @@ function showModal(student) {
     function clickPrefects () {
         console.log("hahahah");
         
-        if (animal.winner == false) {
+        /*if (animal.winner == false) {
+
             /*let prefect = checkWinnerNumber(animal) ;
             console.log(won);
             animal.winner = won;
@@ -384,4 +385,5 @@ function isAll(student) {
         return false;
     }
 }
+
 
