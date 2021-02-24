@@ -2,8 +2,10 @@
 
 window.addEventListener("DOMContentLoaded", init);
 
-const allStudents = [];
+let allStudents = [];
 let allStudentsFiltered = [];
+let allStudentsExpeld = [];
+let allPrefects = [] ;
 
 const Student = {
     firstName: "",
@@ -12,6 +14,8 @@ const Student = {
     nickName: "unknown",
     gender: "",
     house: "",
+    prefect : false ,
+    expelled : false ,
     image: "unknown"
 };
 
@@ -89,7 +93,7 @@ function prepareObjects(jsonData) {
             student.nickName = student.nickName.split('"').join('');
             student.nickName = student.nickName.substring(0,1).toUpperCase() + student.nickName.substring(1).toLowerCase();
         } else {
-            student.nickName = "";
+            student.nickName = false;
             student.middleName = student.middleName.substring(0,1).toUpperCase() + student.middleName.substring(1).toLowerCase();
         }
 
@@ -101,30 +105,19 @@ function prepareObjects(jsonData) {
         student.house = jsonObject.house.trim();
         student.house = student.house.substring(0,1).toUpperCase() + student.house.substring(1).toLowerCase();
 
+        //get image
         if (student.lastName == false) {
-            student.image = undefined ;
+            student.image = "hogwarts.png" ;
         } else if (hyphen == -1) {
             student.image = student.lastName.toLowerCase() + "_" + student.firstName.substring(0,1).toLowerCase() + ".png";
         } else {
             student.image = student.lastName.substring(hyphen+1).toLowerCase() + `_${student.firstName.substring(0,1).toLowerCase()}` + `.png`;
         } 
-        
-        
-        // new object 
-        // student.firstName = name[0];
-        console.log(student.firstName);
-        // student.lastName = name[0];
-        console.log(student.lastName);
-        // student.middleName = name[0];
-        console.log(student.middleName);
-        // student.nickName = name[0]
-        console.log(student.nickName);
-        // student.gender = jsonObject.gender;
-        console.log(student.gender);
-        // student.house = jsonObject.house;
-        console.log(student.house);
-        // student.image = ;
 
+        //set everybody to normal people
+        student.expelled = false ;
+        student.prefect = false ;
+        
         allStudents.unshift(student);
         
     });
@@ -139,48 +132,117 @@ function displayList() {
     // build a new list
     
     allStudents.forEach(displayStudent);
-    console.table(allStudents);
 }
 
 function displayStudent(student) {
     console.log("displayStudent");
     // create clone / aka cloning my template in html
     const clone = document.querySelector("template#student").content.cloneNode(true);
+    
     // set clone data
+    clone.querySelector("[data-field=firstName]").addEventListener("click", clickStudent );
+    function clickStudent () {
+        showModal(student);
+        //buildList();
+    }
     clone.querySelector("[data-field=firstName]").textContent = student.firstName;
     clone.querySelector("[data-field=lastName]").textContent = student.lastName;
-    clone.querySelector("[data-field=middleName]").textContent = student.middleName;
-    clone.querySelector("[data-field=nickName]").textContent = student.nickName;
-    clone.querySelector("[data-field=gender]").textContent = student.gender;
+    //clone.querySelector("[data-field=middleName]").textContent = student.middleName;
+    //clone.querySelector("[data-field=nickName]").textContent = student.nickName;
+    //clone.querySelector("[data-field=gender]").textContent = student.gender;
     clone.querySelector("[data-field=house]").textContent = student.house;
-    if (student.image == undefined) {
-        ("you have no inage");
-    } else {
-        clone.querySelector("img").src = `images/${student.image}`;
-    }
+    
     
     document.querySelector("#list tbody").appendChild(clone);
 
-    // copy.querySelector("button").addEventListener("click", () => {
-    //     console.log("click", dish);
-    //     fetch(`https://kea-alt-del.dk/t5/api/product?id=${dish.id}`)
-    //       .then((res) => res.json())
-    //       .then(showDetails);
-    //   });
-    
+    /*copy.querySelector("button").addEventListener("click", () => {
+         console.log("click", dish);
+         fetch(`https://kea-alt-del.dk/t5/api/product?id=${dish.id}`)
+           .then((res) => res.json())
+           .then(showDetails);
+       });
+    */
 }
 
 function showModal(student) {
-    console.log(student);
-    const modal = document.querySelector(".modal-background");
-    modal.querySelector("[data-field=firstName]").textContent = student.firstName;
-    modal.querySelector("[data-field=lastName]").textContent = student.lastName;
-    modal.querySelector("[data-field=middleName]").textContent = student.middleName;
-    modal.querySelector("[data-field=nickName]").textContent = student.nickName;
-    modal.querySelector("[data-field=gender]").textContent = student.gender;
-    modal.querySelector("[data-field=house]").textContent = student.house;
+    console.log("showModal");
+    const modal = document.querySelector(".modalBackground");
+
+    //FILL CONTENT
+    modal.querySelector(".modalStudentName").textContent = student.firstName +" "+ student.middleName +" "+ student.lastName;
+    
+
+    //CHECK NICKNAME
+    if (student.nickName){
+        modal.querySelector(".nickNametll").classList.remove("hide");
+        modal.querySelector(".modalStudentNickName").classList.remove("hide");
+        modal.querySelector(".modalStudentNickName").textContent = student.nickName;
+    } 
+
+   //FILL CONTENT
+    modal.querySelector(".modalGender").textContent = student.gender;
+    modal.querySelector(".modalHouse").textContent = student.house;
+    modal.querySelector(".modalContent").classList.add(student.house);
+
+    //IF PREFECT THEN DISPLAY IT
+    modal.querySelector(".prefectIndicator").addEventListener("click", clickPrefects );
+
+    function clickPrefects () {
+        console.log("hahahah");
+        
+        if (animal.winner == false) {
+            /*let prefect = checkWinnerNumber(animal) ;
+            console.log(won);
+            animal.winner = won;
+            console.log("⭐");
+        } /*else { 
+            animal.winner = false;
+            allWinnerAnimal = allWinnerAnimal.filter(isLoser);
+            console.log(allWinnerAnimal);
+        }
+        console.log(animal);
+        buildList();
+        */
+    }
+    
+
+    //IF NO IMAGE PUT REPLACEMENT 
+    if (student.image == undefined) {
+        ("you have no inage");
+    } else {
+        modal.querySelector("img").src = `images/${student.image}`;
+    }
+    
+    //DISPLAY
     modal.classList.remove("hide");
+
+
+    //IF CLOSEBUTT CLICK T
+    document.querySelector("#closeModalButton").addEventListener("click", closeModal);
+    function closeModal() {
+        console.log("closeModal");
+        modal.querySelector(".nickNametll").classList.add("hide");
+        modal.querySelector(".modalStudentNickName").classList.add("hide");
+        document.querySelector(".modalBackground").classList.add("hide");
+        modal.querySelector(".modalContent").classList.remove(student.house);
+    }
+
+
+    //IF EXPLLE SPELL USED
+    modal.querySelector("button").addEventListener("click", Expelliarmus);
+    console.log(allStudentsExpeld);
+    function Expelliarmus () {
+        modal.querySelector("button").removeEventListener("click", Expelliarmus);
+        student.expelled = true ;
+        allStudents = allStudents.filter(expeling) ;
+        allStudentsFiltered = allStudentsFiltered.filter(expeling);
+        allStudentsExpeld.unshift(student);
+        console.log(allStudentsExpeld);
+        console.log("the student has ben expelled");
+        displayListFiltered(allStudentsFiltered);
+    }
 }
+
 
 // buttons
 
@@ -199,6 +261,14 @@ function compareFirstName (a,b) {
         return 1 ; 
     }
 } 
+function expeling(student) {
+    console.log("its around here");
+    if (student.expelled == true) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 function displayListFiltered (filtered) {
     document.querySelector("#list tbody").innerHTML = "";
@@ -288,17 +358,18 @@ function isPrefect(student) {
 }
 
 function expelledButton() {
-    const onlyExpelled = allStudents.filter(isExpelled);
-    displayList(onlyExpelled);
+    const onlyExpelled = allStudentsExpeld;
+    allStudentsFiltered = onlyExpelled ;
+    displayListFiltered(onlyExpelled);
 }
 
-function isExpelled(student) {
+/*function isExpelled(student) {
     if (student.expelled === "expelled") {
         return true;
     } else {
         return false;
     }
-}
+}*/
 
 function allButton() {
     const onlyAll = allStudents.filter(isAll);

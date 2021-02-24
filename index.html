@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cleaning Hogwarts Data</title>
     <link rel="stylesheet" href="styleHogwarts.css" />
+    <link rel="icon" href="images/hogwarts.png" />
 </head>
 
 <body>
@@ -31,24 +32,14 @@
             <div id="sortContainer">
                 <label>Sort:</label><br>
                 <button class="sort" data-action="filter" data-filter="firstNameSort">Sort by firstname</button><br>
-                <button class="sort" data-action="filter" data-filter="Slytherin">Slytherin</button><br>
-                <button class="sort" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button><br>
-                <button class="sort" data-action="filter" data-filter="Hufflepuff">Hufflepuff</button><br>
-                <button class="sort" data-action="filter" data-filter="Gryffindor">Gryffindor</button><br>
-                <button class="sort" data-action="filter" data-filter="bloodType">Blood Type</button><br>
-                <button class="sort" data-action="filter" data-filter="prefect">Prefect</button><br>
             </div>
         </div>
         <table id="list">
             <thead>
                 <tr>
                     <th>FirstName</th>
-                    <th>MiddleName</th>
-                    <th>NickName</th>
                     <th>LastName</th>
-                    <th>Gender</th>
                     <th>House</th>
-                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,22 +54,32 @@
     <template id="student">
         <tr>
             <td data-field="firstName">FIRST NAME</td>
-            <td data-field="middleName">MIDDLE NAME</td>
-            <td data-field="nickName">NICK NAME</td>
             <td data-field="lastName">LAST NAME</td>
-            <td data-field="gender">GENDER</td>
             <td data-field="house">HOUSE</td>
-            <td data-field="image"><img class="image" src="" alt=""></td>
         </tr>
     </template>
 
     <div class="modalBackground hide">
         <div class="modalContent">
-            <h2 class="modalStudentName">Student Name</h2>
-            <h2 class="modalHouse">house</h2>
-
-            <h2 class="modalGender">gender</h2>
-        </div>
+            <div id="theLeftContent">
+                <h3>Student Full Name :</h3>
+                <p class="modalStudentName"></p>
+                <h3 class="nickNametll hide">NickName :</h3>
+                <p class="modalStudentNickName hide"></p>
+                <h3>House :</h3>
+                <p class="modalHouse"></p>
+                <h3>Gender :</h3>
+                <p class="modalGender"></p>
+            </div>
+            <div id="theRightContent">
+                <div id="closeModalButton">Close</div>
+                <div class="prefectsNo prefectIndicator">⭐</div>
+                <img class="image" src="" alt="">
+            </div>
+            <button>Expelliarmus</button>
+            <!--(expelle student)-->
+            <button></button>
+            </div>
     </div>
     <script src="scriptHogwarts.js"></script>
 </body>
