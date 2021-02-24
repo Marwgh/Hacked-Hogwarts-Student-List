@@ -5,7 +5,10 @@ window.addEventListener("DOMContentLoaded", init);
 let allStudents = [];
 let allStudentsFiltered = [];
 let allStudentsExpeld = [];
-let allPrefects = [] ;
+let allPrefectsS = [] ;
+let allPrefectsH = [] ;
+let allPrefectsR = [] ;
+let allPrefectsG = [] ;
 
 const Student = {
     firstName: "",
@@ -185,28 +188,49 @@ function showModal(student) {
     modal.querySelector(".modalContent").classList.add(student.house);
 
     //IF PREFECT THEN DISPLAY IT
+    if (student.prefect == true) {
+        modal.querySelector(".prefectIndicator").classList.remove("prefectsNo"); 
+    }
+    
     modal.querySelector(".prefectIndicator").addEventListener("click", clickPrefects );
 
-    function clickPrefects () {
-        console.log("hahahah");
-        
-        /*if (animal.winner == false) {
 
-            /*let prefect = checkWinnerNumber(animal) ;
-            console.log(won);
-            animal.winner = won;
-            console.log("⭐");
-        } /*else { 
-            animal.winner = false;
-            allWinnerAnimal = allWinnerAnimal.filter(isLoser);
-            console.log(allWinnerAnimal);
+
+    function clickPrefects () {
+        modal.querySelector(".prefectIndicator").removeEventListener("click", clickPrefects );
+
+        if (student.house === "Slytherin") {
+            console.log(allPrefectsS);
+            let areUprefect = checkHouse(allPrefectsS);
+            console.log(areUprefect);
+            if (areUprefect == false ) {
+                alert ("you cant")
+            } else if (areUprefect == true) {
+                student.prefect = true ;
+                allPrefectsS.unshift(student);
+                modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
+            } else if (areUprefect == false) {
+                student.prefect = false ;
+                alert ("you cant")
+    
+            }
         }
-        console.log(animal);
-        buildList();
+        
+        
+        /*
+        if (areUprefect == false ) {
+            alert ("you cant")
+        } else if (areUprefect == true) {
+            student.prefect = true ;
+            allPrefects.unshift(student);
+            modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
+        } else if (areUprefect == false) {
+            student.prefect = false ;
+
+        }
         */
     }
     
-
     //IF NO IMAGE PUT REPLACEMENT 
     if (student.image == undefined) {
         ("you have no inage");
@@ -221,17 +245,16 @@ function showModal(student) {
     //IF CLOSEBUTT CLICK T
     document.querySelector("#closeModalButton").addEventListener("click", closeModal);
     function closeModal() {
-        console.log("closeModal");
         modal.querySelector(".nickNametll").classList.add("hide");
         modal.querySelector(".modalStudentNickName").classList.add("hide");
         document.querySelector(".modalBackground").classList.add("hide");
         modal.querySelector(".modalContent").classList.remove(student.house);
+        modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
     }
 
 
     //IF EXPLLE SPELL USED
     modal.querySelector("button").addEventListener("click", Expelliarmus);
-    console.log(allStudentsExpeld);
     function Expelliarmus () {
         modal.querySelector("button").removeEventListener("click", Expelliarmus);
         student.expelled = true ;
@@ -244,7 +267,47 @@ function showModal(student) {
     }
 }
 
+function checkHouse (theList) {
+    console.log("im comming in there");
 
+    if (theList.length == 0 ){
+        console.log("im counting for 0 "  );
+        return true
+    } else if (theList.length == 1  ) {
+        console.log("im counting  for 1"  );
+        return true
+    } else if (theList.length == 2 ) {
+        return false
+    } else {
+        return false
+        
+    }
+
+}
+/*
+function checkForHouses (student) {
+    let p = 0 ;
+    let i = 0 ;
+    console.log(student.house);
+    console.log(" allPrefects.length is this long " + allPrefects.length );
+    while ( i >= allPrefects.length ) {
+        console.log(i);
+        console.log("im counting " + i );
+        if (student.house == allPrefects[i].house) {
+            p = p+ 1;
+            
+        } 
+        i++
+    }
+    console.log(p);
+    /*
+    if (p > 2) {
+        return false
+    } else if (p < 3) {
+        return true
+    }
+}
+*/
 // buttons
 
 document.querySelector("[data-filter=firstNameSort]").addEventListener("click" , sortFirstName);
