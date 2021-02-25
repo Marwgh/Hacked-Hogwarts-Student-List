@@ -2,8 +2,11 @@
 
 window.addEventListener("DOMContentLoaded", init);
 
+//Full array
 let allStudents = [];
+//remeber last version displayed  
 let allStudentsFiltered = [];
+//array that expeld 
 let allStudentsExpeld = [];
 let allPrefectsS = [] ;
 let allPrefectsH = [] ;
@@ -17,8 +20,8 @@ const Student = {
     nickName: "unknown",
     gender: "",
     house: "",
-    prefect : false ,
-    expelled : false ,
+    prefect : "",
+    expelled : "" ,
     image: "unknown"
 };
 
@@ -121,6 +124,7 @@ function prepareObjects(jsonData) {
         student.expelled = false ;
         student.prefect = false ;
         
+        
         allStudents.unshift(student);
         
     });
@@ -144,7 +148,9 @@ function displayStudent(student) {
     
     // set clone data
     clone.querySelector("[data-field=firstName]").addEventListener("click", clickStudent );
+
     function clickStudent () {
+        
         showModal(student);
         //buildList();
     }
@@ -173,6 +179,13 @@ function showModal(student) {
 
     //FILL CONTENT
     modal.querySelector(".modalStudentName").textContent = student.firstName +" "+ student.middleName +" "+ student.lastName;
+
+    //IF NO IMAGE PUT REPLACEMENT 
+    if (student.image == undefined) {
+        ("you have no inage");
+    } else {
+        modal.querySelector("img").src = `images/${student.image}`;
+    }
     
 
     //CHECK NICKNAME
@@ -193,53 +206,59 @@ function showModal(student) {
     }
     
     modal.querySelector(".prefectIndicator").addEventListener("click", clickPrefects );
-
-
-
+    console.log("all prefects from sliv");
+    console.log(allPrefectsS);
     function clickPrefects () {
         modal.querySelector(".prefectIndicator").removeEventListener("click", clickPrefects );
 
         if (student.house === "Slytherin") {
+            console.log("all prefects from sliv");
             console.log(allPrefectsS);
             let areUprefect = checkHouse(allPrefectsS);
             console.log(areUprefect);
-            if (areUprefect == false ) {
-                alert ("you cant")
+
+            if  (student.prefect == true ) {
+                console.log("this is the student you are working with");
+                console.log(student);
+                student.prefect = false ;
+                allPrefectsS = allPrefectsS.filter(isPrefect);
+                modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+
             } else if (areUprefect == true) {
+
                 student.prefect = true ;
+                console.log("this is the student you are working with");
+                console.log(student);
                 allPrefectsS.unshift(student);
                 modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
-            } else if (areUprefect == false) {
-                student.prefect = false ;
-                alert ("you cant")
-    
-            }
-        }
-        
-        
-        /*
-        if (areUprefect == false ) {
-            alert ("you cant")
-        } else if (areUprefect == true) {
-            student.prefect = true ;
-            allPrefects.unshift(student);
-            modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
-        } else if (areUprefect == false) {
-            student.prefect = false ;
 
+            } else if (areUprefect == false) {
+                alert ("you cant")
+             
+            }
+
+        } else if (student.house === "Ravenclaw") {
+            console.log(allPrefectsR);
         }
-        */
-    }
-    
-    //IF NO IMAGE PUT REPLACEMENT 
-    if (student.image == undefined) {
-        ("you have no inage");
-    } else {
-        modal.querySelector("img").src = `images/${student.image}`;
+        
+
     }
     
     //DISPLAY
     modal.classList.remove("hide");
+
+    //IF EXPLLE SPELL USED
+    modal.querySelector("button").addEventListener("click", Expelliarmus);
+    function Expelliarmus () {
+        modal.querySelector("button").removeEventListener("click", Expelliarmus);
+        student.expelled = true ;
+        allStudents = allStudents.filter(expeling) ;
+        allStudentsFiltered = allStudentsFiltered.filter(expeling);
+        allStudentsExpeld.unshift(student);
+        console.log("this is the expeld students");
+        console.log(allStudentsExpeld);
+        displayListFiltered(allStudentsFiltered);
+    }
 
 
     //IF CLOSEBUTT CLICK T
@@ -250,21 +269,10 @@ function showModal(student) {
         document.querySelector(".modalBackground").classList.add("hide");
         modal.querySelector(".modalContent").classList.remove(student.house);
         modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+        student = "" ;
     }
 
-
-    //IF EXPLLE SPELL USED
-    modal.querySelector("button").addEventListener("click", Expelliarmus);
-    function Expelliarmus () {
-        modal.querySelector("button").removeEventListener("click", Expelliarmus);
-        student.expelled = true ;
-        allStudents = allStudents.filter(expeling) ;
-        allStudentsFiltered = allStudentsFiltered.filter(expeling);
-        allStudentsExpeld.unshift(student);
-        console.log(allStudentsExpeld);
-        console.log("the student has ben expelled");
-        displayListFiltered(allStudentsFiltered);
-    }
+   
 }
 
 function checkHouse (theList) {
@@ -284,33 +292,12 @@ function checkHouse (theList) {
     }
 
 }
-/*
-function checkForHouses (student) {
-    let p = 0 ;
-    let i = 0 ;
-    console.log(student.house);
-    console.log(" allPrefects.length is this long " + allPrefects.length );
-    while ( i >= allPrefects.length ) {
-        console.log(i);
-        console.log("im counting " + i );
-        if (student.house == allPrefects[i].house) {
-            p = p+ 1;
-            
-        } 
-        i++
-    }
-    console.log(p);
-    /*
-    if (p > 2) {
-        return false
-    } else if (p < 3) {
-        return true
-    }
-}
-*/
+
 // buttons
 
+//SORTING EVENT LISTNER
 document.querySelector("[data-filter=firstNameSort]").addEventListener("click" , sortFirstName);
+document.querySelector("[data-filter=lastNameSort]").addEventListener("click" , sortLastName);
 
 function sortFirstName () {
     allStudentsFiltered.sort(compareFirstName);
@@ -325,6 +312,30 @@ function compareFirstName (a,b) {
         return 1 ; 
     }
 } 
+
+function sortLastName () {
+    allStudentsFiltered.sort(compareLastName);
+    console.log(allStudentsFiltered);
+    displayListFiltered(allStudentsFiltered);
+
+}
+function compareLastName (a,b) {
+    if ( a.lastName < b.lastName ) {
+        return -1;
+    } else {
+        return 1 ; 
+    }
+} 
+
+function isPrefect(student) {
+    console.log("its around here");
+    if (student.prefect == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function expeling(student) {
     console.log("its around here");
     if (student.expelled == true) {
@@ -409,11 +420,11 @@ function isBloodType(student) {
 }
 
 function prefectButton() {
-    const onlyPrefect = allStudents.filter(isPrefect);
+    const onlyPrefect = allStudents.filter(isItPrefect);
     displayList(onlyPrefect);
 }
 
-function isPrefect(student) {
+function isItPrefect(student) {
     if (student.prefect === "prefect") {
         return true;
     } else {
@@ -422,31 +433,31 @@ function isPrefect(student) {
 }
 
 function expelledButton() {
-    const onlyExpelled = allStudentsExpeld;
+    const onlyExpelled = allStudentsExpeld.filter(isExpelled) ;
     allStudentsFiltered = onlyExpelled ;
     displayListFiltered(onlyExpelled);
 }
 
-/*function isExpelled(student) {
-    if (student.expelled === "expelled") {
+function isExpelled(student) {
+    if (student.expelled == true ) {
         return true;
     } else {
         return false;
     }
-}*/
-
-function allButton() {
-    const onlyAll = allStudents.filter(isAll);
-    displayList(loadJSON);
-    displayList(onlyAll);
 }
 
-function isAll(student) {
+function allButton() {
+    const onlyAll = allStudents;
+    allStudentsFiltered = onlyAll ;
+    displayListFiltered(onlyAll);
+}
+
+/*function isAll(student) {
     if (student.all === "all") {
         return true;
     } else {
         return false;
     }
 }
-
+*/
 
