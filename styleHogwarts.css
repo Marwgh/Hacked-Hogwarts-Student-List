@@ -177,7 +177,7 @@ th {
 
 .Slytherin {
     background-color: green;
-    background-image: url(/images/slytherin.png);
+    background-image: url(./images/slytherin.png);
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
@@ -186,7 +186,7 @@ th {
 
 .Ravenclaw {
     background-color: grey ;
-    background-image: url(/images/ravenclaw.png);
+    background-image: url(./images/ravenclaw.png);
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
@@ -195,7 +195,7 @@ th {
 
 .Hufflepuff {
     background-color:  brown;
-    background-image: url(/images/hufflepuff.png);
+    background-image: url(./images/hufflepuff.png);
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
@@ -204,7 +204,7 @@ th {
 
 .Gryffindor {
     background-color: rgb(230, 197, 13);
-    background-image: url(/images/gryffindor.png);
+    background-image: url(./images/gryffindor.png);
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
