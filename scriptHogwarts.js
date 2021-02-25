@@ -22,6 +22,7 @@ const Student = {
     house: "",
     prefect : "",
     expelled : "" ,
+    bloodType : "",
     image: "unknown"
 };
 
@@ -114,7 +115,9 @@ function prepareObjects(jsonData) {
         //get image
         if (student.lastName == false) {
             student.image = "hogwarts.png" ;
-        } else if (hyphen == -1) {
+        } else if  (student.firstName === "Parvati", student.firstName === "Padma" ) {
+            student.image = student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+        }else if (hyphen == -1) {
             student.image = student.lastName.toLowerCase() + "_" + student.firstName.substring(0,1).toLowerCase() + ".png";
         } else {
             student.image = student.lastName.substring(hyphen+1).toLowerCase() + `_${student.firstName.substring(0,1).toLowerCase()}` + `.png`;
@@ -124,9 +127,30 @@ function prepareObjects(jsonData) {
         student.expelled = false ;
         student.prefect = false ;
         
-        
+        //fecth the data => .then student.lastname in pure blood list => itys pure / 
+        /*
+    
+        fetch("https://petlatkea.dk/2020/hogwarts/students.json")
+        .then(r => r.json())
+        .then (jsonData => {
+        student.bloodType = checkBloodType(student, jsonData);
+        // loaded --> prepare objects
+
+        });
+        function checkBloodType () {
+            if (student.lastName is in pure) {
+                return "pure"
+            } else if (student.lastname is un half) {
+                return "half"
+            } else {
+                return "muggle"
+            }
+        }
+        */
+
+
+
         allStudents.unshift(student);
-        
     });
     allStudentsFiltered = allStudents ;
     displayList();
@@ -206,14 +230,63 @@ function showModal(student) {
     }
     
     modal.querySelector(".prefectIndicator").addEventListener("click", clickPrefects );
-    console.log("all prefects from sliv");
-    console.log(allPrefectsS);
     function clickPrefects () {
         modal.querySelector(".prefectIndicator").removeEventListener("click", clickPrefects );
 
         if (student.house === "Slytherin") {
-            console.log("all prefects from sliv");
+            PrefectorSlyth(student);
+            
+
+        } else if (student.house === "Ravenclaw") {
+            console.log("I am Ravenclaw");
+            PrefectorRaven(student);
+            
+            
+        } else if (student.house === "Hufflepuff") {
+            console.log("I am Hufflepuff");
+            PrefectorHuffl(student);
+        } else if (student.house === "Gryffindor") {
+            console.log("I am Gryffindor");
+            PrefectorGryff(student);
+        }
+        
+
+    }
+    
+    //DISPLAY
+    modal.classList.remove("hide");
+
+    //IF EXPLLE SPELL USED
+    modal.querySelector("button").addEventListener("click", Expelliarmus);
+    function Expelliarmus () {
+        modal.querySelector("button").removeEventListener("click", Expelliarmus);
+        student.expelled = true ;
+        allStudents = allStudents.filter(expeling) ;
+        allStudentsFiltered = allStudentsFiltered.filter(expeling);
+        allStudentsExpeld.unshift(student);
+        console.log("this is the expeld students");
+        console.log(allStudentsExpeld);
+        displayListFiltered(allStudentsFiltered);
+    }
+    //IF CLOSEBUTT CLICK T
+    document.querySelector("#closeModalButton").addEventListener("click", closeModal);
+    function closeModal() {
+        modal.querySelector(".nickNametll").classList.add("hide");
+        modal.querySelector(".modalStudentNickName").classList.add("hide");
+        document.querySelector(".modalBackground").classList.add("hide");
+        modal.querySelector(".modalContent").classList.remove(student.house);
+        modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+        student = "" ;
+    }
+
+   
+}
+
+function PrefectorSlyth(student) {
+    const modal = document.querySelector(".modalBackground");
+    console.log("all prefects from sliv");
             console.log(allPrefectsS);
+            
             let areUprefect = checkHouse(allPrefectsS);
             console.log(areUprefect);
 
@@ -236,44 +309,102 @@ function showModal(student) {
                 alert ("you cant")
              
             }
-
-        } else if (student.house === "Ravenclaw") {
-            console.log(allPrefectsR);
-        }
         
-
-    }
-    
-    //DISPLAY
-    modal.classList.remove("hide");
-
-    //IF EXPLLE SPELL USED
-    modal.querySelector("button").addEventListener("click", Expelliarmus);
-    function Expelliarmus () {
-        modal.querySelector("button").removeEventListener("click", Expelliarmus);
-        student.expelled = true ;
-        allStudents = allStudents.filter(expeling) ;
-        allStudentsFiltered = allStudentsFiltered.filter(expeling);
-        allStudentsExpeld.unshift(student);
-        console.log("this is the expeld students");
-        console.log(allStudentsExpeld);
-        displayListFiltered(allStudentsFiltered);
-    }
-
-
-    //IF CLOSEBUTT CLICK T
-    document.querySelector("#closeModalButton").addEventListener("click", closeModal);
-    function closeModal() {
-        modal.querySelector(".nickNametll").classList.add("hide");
-        modal.querySelector(".modalStudentNickName").classList.add("hide");
-        document.querySelector(".modalBackground").classList.add("hide");
-        modal.querySelector(".modalContent").classList.remove(student.house);
-        modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
-        student = "" ;
-    }
-
-   
 }
+function PrefectorRaven(student) {
+    const modal = document.querySelector(".modalBackground");
+    console.log("all prefects from raven");
+    console.log(allPrefectsR);
+          
+            let areUprefect = checkHouse(allPrefectsR);
+            console.log(areUprefect);
+ 
+            if  (student.prefect == true ) {
+                console.log("this is the student you are working with");
+                console.log(student);
+                student.prefect = false ;
+                allPrefectsR = allPrefectsR.filter(isPrefect);
+                modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+                 
+
+            } else if (areUprefect == true) {
+
+                student.prefect = true ;
+                console.log("this is the student you are working with");
+                console.log(student);
+                allPrefectsR.unshift(student);
+                modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
+
+            } else if (areUprefect == false) {
+                alert ("you cant")
+             
+            }
+            
+        
+}
+function PrefectorHuffl(student) {
+    const modal = document.querySelector(".modalBackground");
+    console.log("all prefects from Huffl");
+    console.log(allPrefectsH);
+          
+            let areUprefect = checkHouse(allPrefectsH);
+            console.log(areUprefect);
+ 
+            if  (student.prefect == true ) {
+                console.log("this is the student you are working with");
+                console.log(student);
+                student.prefect = false ;
+                allPrefectsH = allPrefectsH.filter(isPrefect);
+                modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+                 
+
+            } else if (areUprefect == true) {
+
+                student.prefect = true ;
+                console.log("this is the student you are working with");
+                console.log(student);
+                allPrefectsH.unshift(student);
+                modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
+
+            } else if (areUprefect == false) {
+                alert ("you cant")
+             
+            }
+            
+        
+}
+function PrefectorGryff(student) {
+    const modal = document.querySelector(".modalBackground");
+    console.log("all prefects from Gryf");
+    console.log(allPrefectsG);
+          
+            let areUprefect = checkHouse(allPrefectsG);
+            console.log(areUprefect);
+ 
+            if  (student.prefect == true ) {
+                console.log("this is the student you are working with");
+                console.log(student);
+                student.prefect = false ;
+                allPrefectsG = allPrefectsG.filter(isPrefect);
+                modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+                 
+
+            } else if (areUprefect == true) {
+
+                student.prefect = true ;
+                console.log("this is the student you are working with");
+                console.log(student);
+                allPrefectsG.unshift(student);
+                modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
+
+            } else if (areUprefect == false) {
+                alert ("you cant")
+             
+            }
+            
+        
+}
+
 
 function checkHouse (theList) {
     console.log("im comming in there");

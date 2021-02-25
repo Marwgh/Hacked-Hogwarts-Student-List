@@ -158,9 +158,11 @@ th {
 .modalContent > button {
     position: absolute;
     bottom: 0.5vw;
+    cursor: pointer;
 }
 .prefectsNo{
     filter: grayscale(100%);
+    cursor: pointer;
 }
 
 .prefectIndicator{
@@ -168,18 +170,43 @@ th {
     float: right;
 }
 
+#imAPrefect {
+    position: absolute;
+    top: 4.5vw;
+}
+
 .Slytherin {
     background-color: green;
+    background-image: url(/images/slytherin.png);
+    background-size: 10vw;
+    background-repeat: no-repeat;
+    background-position-x: 15vw;
+    background-position-y: 5vw;
 }
 
 .Ravenclaw {
     background-color: grey ;
+    background-image: url(/images/ravenclaw.png);
+    background-size: 10vw;
+    background-repeat: no-repeat;
+    background-position-x: 15vw;
+    background-position-y: 5vw;
 }
 
 .Hufflepuff {
     background-color:  brown;
+    background-image: url(/images/hufflepuff.png);
+    background-size: 10vw;
+    background-repeat: no-repeat;
+    background-position-x: 15vw;
+    background-position-y: 5vw;
 }
 
 .Gryffindor {
-    background-color: gold;
+    background-color: rgb(230, 197, 13);
+    background-image: url(/images/ravenclaw.png);
+    background-size: 10vw;
+    background-repeat: no-repeat;
+    background-position-x: 15vw;
+    background-position-y: 5vw;
 }
