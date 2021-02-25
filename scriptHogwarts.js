@@ -115,7 +115,7 @@ function prepareObjects(jsonData) {
         //get image
         if (student.lastName == false) {
             student.image = "hogwarts.png" ;
-        } else if  (student.firstName === "Parvati", student.firstName === "Padma" ) {
+        } else if  (student.lastName === "Patil" ) {
             student.image = student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
         }else if (hyphen == -1) {
             student.image = student.lastName.toLowerCase() + "_" + student.firstName.substring(0,1).toLowerCase() + ".png";
