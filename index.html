@@ -13,7 +13,7 @@
 <body>
     <header>
         <h1>Hogwarts School of Witchcraft and Wizardry</h1>
-        <label><input type="text" placeholder="search"></label>
+        <label><input type="text" placeholder="search" id="searchInput"></label>
     </header>
     <main>
         <h2>Student List 1991</h2>
@@ -54,8 +54,8 @@
 
     <template id="student">
         <tr>
-            <td data-field="firstName">FIRST NAME</td>
-            <td data-field="lastName">LAST NAME</td>
+            <td class="showDatas" data-field="firstName">FIRST NAME</td>
+            <td class="showDatas" data-field="lastName">LAST NAME</td>
             <td data-field="house">HOUSE</td>
         </tr>
     </template>
@@ -63,7 +63,7 @@
     <div class="modalBackground hide">
         <div class="modalContent">
             <div id="theLeftContent">
-                <h3>Student Full Name :</h3>
+                <h3>Full Name :</h3>
                 <p class="modalStudentName"></p>
                 <h3 class="nickNametll hide">NickName :</h3>
                 <p class="modalStudentNickName hide"></p>
@@ -72,15 +72,23 @@
                 <h3>Gender :</h3>
                 <p class="modalGender"></p>
             </div>
+            <div id="bloodDisplay">
+                <p>BloodType : </p>
+                <p class="modalBloodType"></p>
+            </div>
             <div id="theRightContent">
                 <div id="closeModalButton">Close</div>
                 <div id="imAPrefect">Is a prefect :</div>
-                <div class="prefectsNo prefectIndicator">⭐</div>
+                <div class="prefectsNo prefectIndicator"></div>
                 <img class="image" src="" alt="">
+                <div id="inquisitionIc" class="hiding">
+                    <p>Inquisitor:</p>
+                    <div id="inquisitionImg"></div>
+                </div>
             </div>
-            <button>Expelliarmus</button>
+            <button id="buttonEx">Expelliarmus</button>
+            <button id="buttonIn">Inquisitorius patronus</button>
             <!--(expelle student)-->
-            <button></button>
             </div>
     </div>
     <script src="scriptHogwarts.js"></script>

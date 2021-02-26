@@ -14,6 +14,7 @@ body {
 header {
     grid-area: hd;
     align-items: center;
+    
 }
   
 h1 {
@@ -28,9 +29,22 @@ h3 {
 }
   
 button {
+    border: 0.3vw rgb(5, 5, 83) solid; 
+    border-radius: 0.5vw;
     color: #fefefe;
     background-color: rgb(3, 3, 104);
+
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
 }
+
+button:hover {
+    background-color: rgb(30, 30, 146);
+}
+button:active {
+    box-shadow: inset -2px -2px 3px rgba(99, 97, 97, 0.6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
   
 label {
     grid-area: label;
@@ -106,6 +120,10 @@ th {
   .hide {
     display: none;
   } 
+  .hiding {
+     opacity: 0;
+     cursor:default;
+  }
   
 .modalBackground {
     position: fixed;
@@ -128,6 +146,8 @@ th {
     color: #fefefe;
     margin: 1em;
     padding: 1em;
+    border-radius: 1vw;
+    border: rgba(0, 0, 0, 0.651) 0.5vw solid;
 }
 .modalContent h3 {
     margin: 0;
@@ -149,30 +169,82 @@ th {
     right: 0.5vw;
     top: 1vw;
     height: 2vw;
-    width: 10vw;
+    width: 5vw;
     text-align: center;
     line-height: 2vw;
     cursor: pointer;
+    border: rgba(0, 0, 0, 0.253) 2px solid;
+    border-radius: 1vw;
 }
 
-.modalContent > button {
+#closeModalButton:hover{
+    background-color: rgba(0, 0, 0, 0.192);
+}
+
+#buttonEx {
     position: absolute;
+    bottom: 0.5vw;
+    left: 10%;
+    cursor: pointer;
+}
+#buttonIn {
+    position: absolute;
+    left: 40%;
     bottom: 0.5vw;
     cursor: pointer;
 }
+
+#bloodDisplay{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 40%;
+    margin: 0;
+
+}
+#bloodDisplay > p {
+    margin: 0 0 0 0.5vw;
+}
 .prefectsNo{
     filter: grayscale(100%);
-    cursor: pointer;
+    
 }
+.showDatas:hover{
+    cursor: pointer;
+    transform: translateY(0.1vw);
+    border-radius: 3vw;
+    text-shadow: 7px 7px 10px #000;
+
+} 
 
 .prefectIndicator{
-    margin-top: 3vw ;
+    background-image: url(./images/prefect.png);
+    background-size: 100%;
+    width: 4vw;
+    height: 4.4vw;
+    margin-top: 2.5vw ;
     float: right;
+    cursor: pointer;
 }
 
 #imAPrefect {
     position: absolute;
-    top: 4.5vw;
+    top: 5.5vw;
+}
+
+#inquisitionIc {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    /*left: 5vw;*/
+    
+}
+#inquisitionImg {
+    background-image: url(./images/inquisit.png);
+    width: 4vw;
+    height: 4vw;
+    background-size: 5vw;
+    background-repeat: no-repeat;
 }
 
 .Slytherin {
@@ -181,7 +253,7 @@ th {
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
-    background-position-y: 5vw;
+    background-position-y: 7vw;
 }
 
 .Ravenclaw {
@@ -190,7 +262,7 @@ th {
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
-    background-position-y: 5vw;
+    background-position-y: 7vw;
 }
 
 .Hufflepuff {
@@ -199,7 +271,7 @@ th {
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
-    background-position-y: 5vw;
+    background-position-y: 7vw;
 }
 
 .Gryffindor {
@@ -208,5 +280,5 @@ th {
     background-size: 10vw;
     background-repeat: no-repeat;
     background-position-x: 15vw;
-    background-position-y: 5vw;
+    background-position-y: 7vw;
 }

@@ -1,17 +1,18 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", init);
-
+const search = document.querySelector("#searchInput") ;
 //Full array
 let allStudents = [];
 //remeber last version displayed  
 let allStudentsFiltered = [];
 //array that expeld 
 let allStudentsExpeld = [];
-let allPrefectsS = [] ;
-let allPrefectsH = [] ;
-let allPrefectsR = [] ;
-let allPrefectsG = [] ;
+
+//let allPrefectsS = [] ;
+//let allPrefectsH = [] ;
+//let allPrefectsR = [] ;
+//let allPrefectsG = [] ;
 
 const Student = {
     firstName: "",
@@ -23,6 +24,7 @@ const Student = {
     prefect : "",
     expelled : "" ,
     bloodType : "",
+    inquisitor : "" ,
     image: "unknown"
 };
 
@@ -126,28 +128,28 @@ function prepareObjects(jsonData) {
         //set everybody to normal people
         student.expelled = false ;
         student.prefect = false ;
+        student.inquisitor = false ;
         
         //fecth the data => .then student.lastname in pure blood list => itys pure / 
-        /*
+        
     
-        fetch("https://petlatkea.dk/2020/hogwarts/students.json")
+        fetch("https://petlatkea.dk/2021/hogwarts/families.json")
         .then(r => r.json())
         .then (jsonData => {
-        student.bloodType = checkBloodType(student, jsonData);
+        student.bloodType = checkBloodType(jsonData);
         // loaded --> prepare objects
 
         });
-        function checkBloodType () {
-            if (student.lastName is in pure) {
+        
+        function checkBloodType (jsonData) {
+            if (jsonData.pure.includes(student.lastName) == true) {
                 return "pure"
-            } else if (student.lastname is un half) {
+            } else if (jsonData.half.includes(student.lastName) == true) {
                 return "half"
             } else {
                 return "muggle"
             }
         }
-        */
-
 
 
         allStudents.unshift(student);
@@ -172,6 +174,7 @@ function displayStudent(student) {
     
     // set clone data
     clone.querySelector("[data-field=firstName]").addEventListener("click", clickStudent );
+    clone.querySelector("[data-field=lastName]").addEventListener("click", clickStudent );
 
     function clickStudent () {
         
@@ -196,6 +199,17 @@ function displayStudent(student) {
        });
     */
 }
+
+//Search 
+search.addEventListener("keyup", (t) =>{
+    console.log("search");
+    let searchString = t.target.value;
+    searchString = searchString.toLowerCase();
+    const filterStudents = allStudents.filter((student) => {
+        return (student.firstName.toLowerCase().includes(searchString) || student.lastName.toLowerCase().includes(searchString) || student.house.toLowerCase().includes(searchString));
+    });
+    displayListFiltered(filterStudents);
+}); 
 
 function showModal(student) {
     console.log("showModal");
@@ -223,12 +237,33 @@ function showModal(student) {
     modal.querySelector(".modalGender").textContent = student.gender;
     modal.querySelector(".modalHouse").textContent = student.house;
     modal.querySelector(".modalContent").classList.add(student.house);
+    modal.querySelector(".modalBloodType").textContent = student.bloodType ;
 
     //IF PREFECT THEN DISPLAY IT
     if (student.prefect == true) {
         modal.querySelector(".prefectIndicator").classList.remove("prefectsNo"); 
     }
-    
+    if (student.inquisitor == true) {
+        modal.querySelector(".prefectIndicator").classList.remove("hiding"); 
+    }
+
+    modal.querySelector("#buttonIn").addEventListener("click", clickInquisit );
+
+    function clickInquisit () {
+        console.log("lol");
+        modal.querySelector("#buttonIn").removeEventListener("click", clickInquisit );
+        if (student.inquisitor == true) {
+            student.inquisitor = false ;
+            modal.querySelector("#inquisitionIc").classList.add("hiding");
+        } else if ( student.bloodType === "pure") {
+            student.inquisitor = true ;
+            modal.querySelector("#inquisitionIc").classList.remove("hiding");
+        } else if (student.bloodType === "half" , student.bloodType === "muggle" ) {
+            alert ("you cant do this its an impure")
+        }
+    }
+
+
     modal.querySelector(".prefectIndicator").addEventListener("click", clickPrefects );
     function clickPrefects () {
         modal.querySelector(".prefectIndicator").removeEventListener("click", clickPrefects );
@@ -257,9 +292,9 @@ function showModal(student) {
     modal.classList.remove("hide");
 
     //IF EXPLLE SPELL USED
-    modal.querySelector("button").addEventListener("click", Expelliarmus);
+    modal.querySelector("#buttonEx").addEventListener("click", Expelliarmus);
     function Expelliarmus () {
-        modal.querySelector("button").removeEventListener("click", Expelliarmus);
+        modal.querySelector("#buttonEx").removeEventListener("click", Expelliarmus);
         student.expelled = true ;
         allStudents = allStudents.filter(expeling) ;
         allStudentsFiltered = allStudentsFiltered.filter(expeling);
@@ -283,6 +318,13 @@ function showModal(student) {
 }
 
 function PrefectorSlyth(student) {
+    const allPrefectsS = allStudents.filter( student => {
+        if(student.house === "Slytherin" && student.prefect == true  ){
+            return true
+        } else {
+            return false
+        }
+    });
     const modal = document.querySelector(".modalBackground");
     console.log("all prefects from sliv");
             console.log(allPrefectsS);
@@ -294,7 +336,7 @@ function PrefectorSlyth(student) {
                 console.log("this is the student you are working with");
                 console.log(student);
                 student.prefect = false ;
-                allPrefectsS = allPrefectsS.filter(isPrefect);
+                //allPrefectsS = allPrefectsS.filter(isPrefect);
                 modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
 
             } else if (areUprefect == true) {
@@ -302,7 +344,7 @@ function PrefectorSlyth(student) {
                 student.prefect = true ;
                 console.log("this is the student you are working with");
                 console.log(student);
-                allPrefectsS.unshift(student);
+                //allPrefectsS.unshift(student);
                 modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
 
             } else if (areUprefect == false) {
@@ -312,6 +354,13 @@ function PrefectorSlyth(student) {
         
 }
 function PrefectorRaven(student) {
+    const allPrefectsR = allStudents.filter( student => {
+        if(student.house === "Ravenclaw" && student.prefect == true  ){
+            return true
+        } else {
+            return false
+        }
+    });
     const modal = document.querySelector(".modalBackground");
     console.log("all prefects from raven");
     console.log(allPrefectsR);
@@ -323,7 +372,6 @@ function PrefectorRaven(student) {
                 console.log("this is the student you are working with");
                 console.log(student);
                 student.prefect = false ;
-                allPrefectsR = allPrefectsR.filter(isPrefect);
                 modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
                  
 
@@ -332,7 +380,6 @@ function PrefectorRaven(student) {
                 student.prefect = true ;
                 console.log("this is the student you are working with");
                 console.log(student);
-                allPrefectsR.unshift(student);
                 modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
 
             } else if (areUprefect == false) {
@@ -343,6 +390,13 @@ function PrefectorRaven(student) {
         
 }
 function PrefectorHuffl(student) {
+    const allPrefectsH = allStudents.filter( student => {
+        if(student.house === "Hufflepuff" && student.prefect == true  ){
+            return true
+        } else {
+            return false
+        }
+    });
     const modal = document.querySelector(".modalBackground");
     console.log("all prefects from Huffl");
     console.log(allPrefectsH);
@@ -354,7 +408,6 @@ function PrefectorHuffl(student) {
                 console.log("this is the student you are working with");
                 console.log(student);
                 student.prefect = false ;
-                allPrefectsH = allPrefectsH.filter(isPrefect);
                 modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
                  
 
@@ -362,8 +415,7 @@ function PrefectorHuffl(student) {
 
                 student.prefect = true ;
                 console.log("this is the student you are working with");
-                console.log(student);
-                allPrefectsH.unshift(student);
+                console.log(student); 
                 modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
 
             } else if (areUprefect == false) {
@@ -374,6 +426,13 @@ function PrefectorHuffl(student) {
         
 }
 function PrefectorGryff(student) {
+    const allPrefectsG = allStudents.filter( student => {
+        if(student.house === "Gryffindor" && student.prefect == true  ){
+            return true
+        } else {
+            return false
+        }
+    });
     const modal = document.querySelector(".modalBackground");
     console.log("all prefects from Gryf");
     console.log(allPrefectsG);
@@ -385,16 +444,13 @@ function PrefectorGryff(student) {
                 console.log("this is the student you are working with");
                 console.log(student);
                 student.prefect = false ;
-                allPrefectsG = allPrefectsG.filter(isPrefect);
                 modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
                  
-
             } else if (areUprefect == true) {
 
                 student.prefect = true ;
                 console.log("this is the student you are working with");
                 console.log(student);
-                allPrefectsG.unshift(student);
                 modal.querySelector(".prefectIndicator").classList.remove("prefectsNo");
 
             } else if (areUprefect == false) {
@@ -552,11 +608,11 @@ function isBloodType(student) {
 
 function prefectButton() {
     const onlyPrefect = allStudents.filter(isItPrefect);
-    displayList(onlyPrefect);
+    displayListFiltered(onlyPrefect);
 }
 
 function isItPrefect(student) {
-    if (student.prefect === "prefect") {
+    if (student.prefect == true) {
         return true;
     } else {
         return false;
