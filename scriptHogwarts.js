@@ -413,6 +413,7 @@ function showModal(student) {
         document.querySelector(".modalBackground").classList.add("hide");
         modal.querySelector(".modalContent").classList.remove(student.house);
         modal.querySelector(".prefectIndicator").classList.add("prefectsNo");
+        modal.querySelector("#inquisitionIc").classList.add("hiding");
         student = "" ;
     }
 
