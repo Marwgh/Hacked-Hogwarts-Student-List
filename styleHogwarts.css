@@ -39,9 +39,12 @@ h3 {
 }
 
 #allShowNum > div{
+    display: flex;
+    flex-direction: row;
     color:#fefefe ;
     margin: 1vw 0 0 1vw ;
 }
+
   
 button {
     border: 0.3vw rgb(5, 5, 83) solid; 
