@@ -397,6 +397,8 @@ function showModal(student) {
      } else {
         modal.querySelector("#buttonEx").removeEventListener("click", Expelliarmus);
         student.expelled = true ;
+        student.inquisitor = false;
+        student.prefect = false ;
         allStudents = allStudents.filter(expeling) ;
         allStudentsFiltered = allStudentsFiltered.filter(expeling);
         allStudentsExpeld.unshift(student);
@@ -747,6 +749,8 @@ function allButton() {
     displayListFiltered(onlyAll);
 }
 
+
+//this is a freindly function :)
 function hackingTheSystem() {
     const superStudent = Object.create(Student);
     superStudent.prefect = true ;

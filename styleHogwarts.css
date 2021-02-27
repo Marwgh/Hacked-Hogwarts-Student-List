@@ -179,8 +179,10 @@ th {
 }
 #theRightContent > img {
     margin-top: 8vw; 
-    max-width: 10vw;
-    max-height: 10vw;
+    max-width: 8vw;
+    max-height: 8vw;
+    border-radius: 2vw;
+    border: rgba(0, 0, 0, 0.253) 2px solid;
   }
 #closeModalButton{
     position: absolute;
