@@ -9,6 +9,10 @@ html body {
   
 body {
     background-color: rgb(3, 3, 104);
+    background-image: url(./images/hogwartsbackgrnd.png);
+    background-size: 4vw;
+    background: filer(opacity(20%));
+
 }
   
 header {
@@ -103,7 +107,17 @@ div {
   
 table {
     grid-area: table;
+    background-color: rgb(3, 3, 104);
+    margin-right: 4vw;
 }
+
+
+tbody tr:nth-child(odd) {
+    background-color: rgb(8, 8, 128);
+}
+
+
+
   
 td {
     text-align: center;
@@ -232,7 +246,6 @@ th {
 .showDatas:hover{
     cursor: pointer;
     transform: translateY(0.1vw);
-    border-radius: 3vw;
     text-shadow: 7px 7px 10px #000;
 
 } 
