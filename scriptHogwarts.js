@@ -27,7 +27,7 @@ const Student = {
     inquisitor : "" ,
     image: "unknown"
 };
-
+ let hacky = 0;
 /*const modal = document.querySelector(".modal-background");
 
 modal.addEventListener("click", () => {
@@ -267,20 +267,47 @@ function showModal(student) {
    //FILL CONTENT
     modal.querySelector(".modalGender").textContent = student.gender;
     modal.querySelector(".modalHouse").textContent = student.house;
-    modal.querySelector(".modalContent").classList.add(student.house);
+    if (student.house === "SuperHouse" ) {
+        modal.querySelector(".modalContent").classList.add("Slytherin");
+    } else {
+        modal.querySelector(".modalContent").classList.add(student.house);
+    }
+    
     modal.querySelector(".modalBloodType").textContent = student.bloodType ;
 
     //IF PREFECT THEN DISPLAY IT
     if (student.prefect == true) {
         modal.querySelector(".prefectIndicator").classList.remove("prefectsNo"); 
     }
-    if (student.inquisitor == true) {
-        modal.querySelector(".prefectIndicator").classList.remove("hiding"); 
+     if (student.inquisitor == true) {
+        modal.querySelector("#inquisitionIc").classList.remove("hiding");
     }
 
     modal.querySelector("#buttonIn").addEventListener("click", clickInquisit );
 
     function clickInquisit () {
+        if (student.house === "SuperHouse") { 
+            if (hacky == 0) {
+                hacky += 1 ;
+             alert ("sorry but no");
+            } else  if(hacky == 1) {
+                hacky += 1 ;
+             alert ("ah ah ah no");
+            } else  if(hacky == 2) {
+                hacky += 1 ;
+             alert ("guess what... still no");
+            } else  if(hacky == 3) {
+                hacky += 1 ;
+             alert ("maybe next time how knows");
+            } else  if(hacky == 4) {
+                hacky += 1 ;
+             alert ("tricked you haha");
+            } else {
+                hacky += 1 ;
+                alert ("neverrrrrrrrr");
+            }
+           
+    } else {
         console.log("lol");
         modal.querySelector("#buttonIn").removeEventListener("click", clickInquisit );
         if (student.inquisitor == true) {
@@ -293,12 +320,33 @@ function showModal(student) {
             alert ("you cant do this its an impure")
         }
     }
-
+    }
 
     modal.querySelector(".prefectIndicator").addEventListener("click", clickPrefects );
     function clickPrefects () {
         modal.querySelector(".prefectIndicator").removeEventListener("click", clickPrefects );
-
+        if (student.house === "SuperHouse") { 
+            if (hacky == 0) {
+                hacky += 1 ;
+             alert ("sorry but no");
+            } else  if(hacky == 1) {
+                hacky += 1 ;
+             alert ("ah ah ah no");
+            } else  if(hacky == 2) {
+                hacky += 1 ;
+             alert ("guess what... still no");
+            } else  if(hacky == 3) {
+                hacky += 1 ;
+             alert ("maybe next time how knows");
+            } else  if(hacky == 4) {
+                hacky += 1 ;
+             alert ("tricked you haha");
+            } else {
+                hacky += 1 ;
+                alert ("neverrrrrrrrr");
+            }
+            
+     }else {
         if (student.house === "Slytherin") {
             PrefectorSlyth(student);
             
@@ -315,7 +363,7 @@ function showModal(student) {
             console.log("I am Gryffindor");
             PrefectorGryff(student);
         }
-        
+    }
 
     }
     
@@ -325,6 +373,28 @@ function showModal(student) {
     //IF EXPLLE SPELL USED
     modal.querySelector("#buttonEx").addEventListener("click", Expelliarmus);
     function Expelliarmus () {
+        if (student.expelled === "Impossiblu") { 
+            if (hacky == 0) {
+                hacky += 1 ;
+             alert ("sorry but no");
+            } else  if(hacky == 1) {
+                hacky += 1 ;
+             alert ("ah ah ah no");
+            } else  if(hacky == 2) {
+                hacky += 1 ;
+             alert ("guess what... still no");
+            } else  if(hacky == 3) {
+                hacky += 1 ;
+             alert ("maybe next time how knows");
+            } else  if(hacky == 4) {
+                hacky += 1 ;
+             alert ("tricked you haha");
+            } else {
+                hacky += 1 ;
+                alert ("neverrrrrrrrr");
+            }
+            
+     } else {
         modal.querySelector("#buttonEx").removeEventListener("click", Expelliarmus);
         student.expelled = true ;
         allStudents = allStudents.filter(expeling) ;
@@ -333,6 +403,7 @@ function showModal(student) {
         console.log("this is the expeld students");
         console.log(allStudentsExpeld);
         displayListFiltered(allStudentsFiltered);
+     }
     }
     //IF CLOSEBUTT CLICK T
     document.querySelector("#closeModalButton").addEventListener("click", closeModal);
@@ -675,12 +746,22 @@ function allButton() {
     displayListFiltered(onlyAll);
 }
 
-/*function isAll(student) {
-    if (student.all === "all") {
-        return true;
-    } else {
-        return false;
-    }
+function hackingTheSystem() {
+    const superStudent = Object.create(Student);
+    superStudent.prefect = true ;
+    superStudent.inquisitor = true ;
+    superStudent.firstName= "Marwane";
+    superStudent.lastName= "Ghalila";
+    superStudent.middleName= "wow";
+    superStudent.nickName= "Supersorcerer";
+    superStudent.gender= "Boolean";
+    superStudent.house= "SuperHouse";
+    superStudent.expelled = "Impossiblu" ;
+    superStudent.bloodType = "Super pure";
+    superStudent.image = "superStudent.png";
+    allStudents.unshift(superStudent);
+    console.log("yes yes yes yes yes yes yes ");
+    displayListFiltered(allStudents);
+
 }
-*/
 
