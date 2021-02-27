@@ -17,6 +17,10 @@
     </header>
     <main>
         <h2>Student List 1991</h2>
+        <div id="curentNum">
+            <p>Number of students displayed :</p>
+            <p id="showNum"></p>
+        </div>
         <div id="fsContainer">
             <div id="filterContainer">
                 <label>Filter:</label><br>
@@ -34,22 +38,43 @@
                 <button class="sort" data-action="filter" data-filter="firstNameSort">Sort by firstname</button><br>
                 <button class="sort" data-action="filter" data-filter="lastNameSort">Sort by lastname</button>
             </div>
-        </div>
-        <table id="list">
-            <thead>
-                <tr>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>House</th>
-                </tr>
-            </thead>
-            <tbody>
+            <div id="allShowNum">
+                <label>Info :</label><br>
+                <div>Number of students in Hogwarts :
+                    <p id="showNumHog"></p>
+                </div>
+                <div>Number of students in Slytherin :
+                    <p id="showNumSly"></p>
+                </div>
+                <div>Number of students in Ravenclaw :
+                    <p id="showNumRav"></p>
+                </div>
+                <div>Number of students in Hufflepuff :
+                    <p id="showNumHuf"></p>
+                </div>
+                <div>Number of students in Gryffindor :
+                    <p id="showNumGry"></p>
+                </div>
+                <div>Student that suffered the spell Expelliarmus :
+                    <p id="showNumExp"></p>
+                </div>
+                </div>
+                </div>
+<table id="list">
+    
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>House</th>
+        </tr>
+    </thead>
+    <tbody>
                 <!-- student template will be copied and inserted here -->
-            </tbody>
-        </table>
+    </tbody>
+</table>
     </main>
     <footer>
-        <label>Number of Students in total:<output type="text"></output></label>
     </footer>
 
     <template id="student">

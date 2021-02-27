@@ -27,6 +27,21 @@ h3 {
     text-align: center;
     color: #fefefe;
 }
+#allShowNum{
+    margin-top: 2vw;
+}
+#curentNum{
+    display: flex;
+    flex-direction: row;
+    color: #fefefe;
+    position: absolute;
+    right: 1vw;
+}
+
+#allShowNum > div{
+    color:#fefefe ;
+    margin: 1vw 0 0 1vw ;
+}
   
 button {
     border: 0.3vw rgb(5, 5, 83) solid; 

@@ -163,15 +163,53 @@ function displayList() {
     // clear the list
     document.querySelector("#list tbody").innerHTML = "";
     // build a new list
-    
+    countNumStud () ;
+    document.querySelector("#showNumHog").textContent = allStudents.length ;
+    document.querySelector("#showNumExp").textContent = allStudentsExpeld.length ;
+    document.querySelector("#showNum").textContent = allStudents.length ;
+    //showNum
     allStudents.forEach(displayStudent);
+}
+
+function countNumStud () {
+    const slyStudent = allStudents.filter( student => {
+        if(student.house === "Slytherin"   ){
+            return true
+        } else {
+            return false
+        }
+    });
+    const ravStudent = allStudents.filter( student => {
+        if(student.house === "Ravenclaw"   ){
+            return true
+        } else {
+            return false
+        }
+    });
+    const hufStudent = allStudents.filter( student => {
+        if(student.house === "Hufflepuff"  ){
+            return true
+        } else {
+            return false
+        }
+    });
+    const gryStudent = allStudents.filter( student => {
+        if(student.house === "Gryffindor"  ){
+            return true
+        } else {
+            return false
+        }
+    });
+    document.querySelector("#showNumSly").textContent = slyStudent.length ;
+    document.querySelector("#showNumGry").textContent = gryStudent.length ;
+    document.querySelector("#showNumHuf").textContent = hufStudent.length ;
+    document.querySelector("#showNumRav").textContent = ravStudent.length ;
 }
 
 function displayStudent(student) {
     console.log("displayStudent");
     // create clone / aka cloning my template in html
     const clone = document.querySelector("template#student").content.cloneNode(true);
-    
     // set clone data
     clone.querySelector("[data-field=firstName]").addEventListener("click", clickStudent );
     clone.querySelector("[data-field=lastName]").addEventListener("click", clickStudent );
@@ -190,14 +228,7 @@ function displayStudent(student) {
     
     
     document.querySelector("#list tbody").appendChild(clone);
-
-    /*copy.querySelector("button").addEventListener("click", () => {
-         console.log("click", dish);
-         fetch(`https://kea-alt-del.dk/t5/api/product?id=${dish.id}`)
-           .then((res) => res.json())
-           .then(showDetails);
-       });
-    */
+    
 }
 
 //Search 
@@ -534,6 +565,11 @@ function expeling(student) {
 
 function displayListFiltered (filtered) {
     document.querySelector("#list tbody").innerHTML = "";
+    countNumStud ();
+    document.querySelector("#showNumHog").textContent = allStudents.length ;
+    document.querySelector("#showNumExp").textContent = allStudentsExpeld.length ;
+    document.querySelector("#showNum").textContent = allStudentsFiltered.length ;
+    //showNum
     // build a new list
     filtered.forEach(displayStudent);
 }
