@@ -307,7 +307,9 @@ function showModal(student) {
                 alert ("neverrrrrrrrr");
             }
            
-    } else {
+    } else if  (student.expelled == true) {
+        alert ("this student is all ready expelld")
+    }else {
         console.log("lol");
         modal.querySelector("#buttonIn").removeEventListener("click", clickInquisit );
         if (student.inquisitor == true) {
@@ -346,6 +348,8 @@ function showModal(student) {
                 alert ("neverrrrrrrrr");
             }
             
+     } else if  (student.expelled == true) {
+         alert ("this student is all ready expelld")
      }else {
         if (student.house === "Slytherin") {
             PrefectorSlyth(student);
@@ -394,7 +398,9 @@ function showModal(student) {
                 alert ("neverrrrrrrrr");
             }
             
-     } else {
+     } else if  (student.expelled == true) {
+        alert ("this student is all ready expelld")
+    }else {
         modal.querySelector("#buttonEx").removeEventListener("click", Expelliarmus);
         student.expelled = true ;
         student.inquisitor = false;
@@ -704,17 +710,22 @@ function isGryffindor(student) {
 }
 
 function bloodTypeButton() {
-    const onlyBloodType = allStudents.filter(isBloodType);
-    displayList(onlyBloodType);
+    const onlyBloodType = allStudentsFiltered.sort(isBloodType);
+    displayListFiltered(onlyBloodType);
 }
 
-function isBloodType(student) {
-    if (student.bloodType === "bloodType") {
-        return true;
+function isBloodType(a) {
+    if ( a.bloodType === "pure" ) {
+        return -1;
+    } else if (a.bloodType === "half"){
+        return 1 ; 
     } else {
-        return false;
-    }
-}
+        return 1 ;
+    }/* else if (a.bloodType === "Super pure") {
+        return -100 ;
+    }*/
+} 
+
 
 function prefectButton() {
     const onlyPrefect = allStudents.filter(isItPrefect);
