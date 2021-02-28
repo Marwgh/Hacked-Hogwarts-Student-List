@@ -761,8 +761,10 @@ function allButton() {
 }
 
 
-//this is a freindly function :)
+//this is a freindly function :) with a friendly event listner
+document.querySelector("#justAButton").addEventListener("click", hackingTheSystem);
 function hackingTheSystem() {
+    alert (":O");
     const superStudent = Object.create(Student);
     superStudent.prefect = true ;
     superStudent.inquisitor = true ;

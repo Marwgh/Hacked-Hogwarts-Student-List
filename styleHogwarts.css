@@ -312,3 +312,16 @@ th {
     background-position-x: 15vw;
     background-position-y: 7vw;
 }
+
+#justAButton {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 2vw;
+    height: 1vw;
+    border-radius: 1vw;
+}
+
+#justAButton:hover {
+    background-color: rgba(0, 0, 0, 0.164);
+}
